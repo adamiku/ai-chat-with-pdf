@@ -13,7 +13,7 @@ if (!process.env.OPENAI_API_KEY) {
 
 const model = new ChatOpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-  modelName: "gpt-4o",
+  modelName: "gpt-4o-mini",
 });
 
 export const indexName = "adamiku";
