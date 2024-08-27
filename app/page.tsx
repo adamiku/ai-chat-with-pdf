@@ -71,7 +71,7 @@ export default function Home() {
               everyone, <span className="text-indigo-600">
                 Chat with PDF
               </span>{" "}
-              turns static documents into
+              turns static documents into{" "}
               <span className="font-bold">dynamic conversations</span>,
               enhancing productivity 10x fold effortlessly.
             </p>

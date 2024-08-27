@@ -1,6 +1,7 @@
 "use client";
 
 import useUpload, { StatusText } from "@/hooks/useUpload";
+import byteSize from "byte-size";
 import {
   CheckCircleIcon,
   CircleArrowDown,
@@ -9,8 +10,10 @@ import {
   SaveIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect } from "react";
-import { useDropzone } from "react-dropzone";
+import { useCallback, useEffect, useState } from "react";
+import { FileRejection, useDropzone } from "react-dropzone";
+
+const MAXIMUM_FILE_SIZE = 5000000;
 
 const statusIcons: {
   [key in StatusText]: JSX.Element;
@@ -27,6 +30,8 @@ const statusIcons: {
 
 function FileUploader() {
   const { progress, status, fileId, handleUpload } = useUpload();
+  const [errors, setErrors] = useState<string | null>();
+
   const router = useRouter();
 
   useEffect(() => {
@@ -36,7 +41,18 @@ function FileUploader() {
   }, [fileId, router]);
 
   const onDrop = useCallback(
-    async (acceptedFiles: File[]) => {
+    async (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
+      if (rejectedFiles.length > 0) {
+        const error = rejectedFiles[0].errors[0];
+        if (error.code === "file-too-large") {
+          setErrors(
+            `Error: File is larger than ${byteSize(MAXIMUM_FILE_SIZE).value} MB`
+          );
+          return;
+        }
+        setErrors(error.message);
+        return;
+      }
       const file = acceptedFiles[0];
       if (file) {
         await handleUpload(file);
@@ -51,6 +67,7 @@ function FileUploader() {
     useDropzone({
       onDrop,
       maxFiles: 1,
+      maxSize: MAXIMUM_FILE_SIZE,
       accept: {
         "application/pdf": [".pdf"],
       },
@@ -99,17 +116,18 @@ function FileUploader() {
             {isDragActive ? (
               <>
                 <RocketIcon className="h-20 w-20 animate-ping" />
-                <p>Drop the files here ...</p>
+                <p>Drop the file here ...</p>
               </>
             ) : (
               <>
                 <CircleArrowDown className="h-20 w-20 animate-bounce" />
                 <p>
-                  Drag &apos;n&apos; drop some files here, or click to select
-                  files
+                  Drag &apos;n&apos; drop a PDF file here, or click to select
+                  file (maximum size: {byteSize(MAXIMUM_FILE_SIZE).value} MB)
                 </p>
               </>
             )}
+            {errors && <p className="text-red-600">{errors}</p>}
           </div>
         </div>
       )}
