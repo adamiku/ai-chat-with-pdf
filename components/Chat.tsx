@@ -47,8 +47,6 @@ function Chat({ id }: Props) {
   useEffect(() => {
     if (!snapshot) return;
 
-    console.log("Updated snapshot", snapshot.docs);
-
     const lastMessage = messages.pop();
 
     if (lastMessage?.role === "ai" && lastMessage.message === "Thinking...") {
@@ -79,7 +77,7 @@ function Chat({ id }: Props) {
       },
       {
         role: "ai",
-        message: "Thinking",
+        message: "Thinking...",
         createdAt: new Date(),
       },
     ]);

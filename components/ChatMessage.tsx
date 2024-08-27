@@ -1,14 +1,12 @@
+"use client";
+
 import { useUser } from "@clerk/nextjs";
 import { BotIcon, Loader2Icon } from "lucide-react";
 import Image from "next/image";
 import Markdown from "react-markdown";
 import { Message } from "./Chat";
 
-type Props = {
-  message: Message;
-};
-
-function ChatMessage({ message }: Props) {
+function ChatMessage({ message }: { message: Message }) {
   const isHuman = message.role === "human";
   const { user } = useUser();
 
@@ -48,5 +46,4 @@ function ChatMessage({ message }: Props) {
     </div>
   );
 }
-
 export default ChatMessage;
