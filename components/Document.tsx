@@ -7,10 +7,10 @@ type Props = {
   id: string;
   name: string;
   size: number;
-  downloadUrl: string;
+  downloadURL: string;
 };
 
-function Document({ id, name, size, downloadUrl }: Props) {
+function Document({ id, name, size, downloadURL }: Props) {
   const router = useRouter();
 
   return (
