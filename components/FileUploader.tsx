@@ -42,6 +42,7 @@ function FileUploader() {
 
   const onDrop = useCallback(
     async (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
+      setErrors(null);
       if (rejectedFiles.length > 0) {
         const error = rejectedFiles[0].errors[0];
         if (error.code === "file-too-large") {
