@@ -1,3 +1,39 @@
+It is an AI SaaS application that allows you to upload and analyze PDF files by AI. 
+
+The project contains a lot of tools and features:
+## AI functionality
+- Pinecone: Vector Database to build knowledgeable AI
+- Langchain: Framework designed to simplify the creation of applications using large language models
+- OpenAI API
+  
+## NextJS
+- full stack react framework by Vercel
+  
+## Clerk
+- Authentication and User Management platform to seamless authentication and authorization
+  
+## Firebase
+- Realtime, flexible, scalable NoSQL cloud database and storage
+  
+## Stripe and webhooks
+- Checkout payment flow
+  
+## Multiple tier support
+- Free and Pro
+
+## Vercel
+- Deploy and host NextJS apps
+
+## React PDF
+- Render, view and manage PDF files
+
+## React dropzone
+- Drag and drop util
+
+## Shadcn and Tailwind
+- Prebuilt and styled React components with TailwindCSS
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
