@@ -10,6 +10,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import ChatMessage from "./ChatMessage";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { useToast } from "./ui/use-toast";
 
 export type Message = {
   id?: string;
@@ -29,7 +30,7 @@ function Chat({ id }: Props) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isPending, startTransition] = useTransition();
   const bottomOfChatRef = useRef<HTMLDivElement>(null);
-
+  const { toast } = useToast();
   const [snapshot, loading, error] = useCollection(
     user &&
       query(
@@ -86,6 +87,11 @@ function Chat({ id }: Props) {
       const { success, message } = await askQuestion(id, q);
 
       if (!success) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: message,
+        });
         setMessages((prev) =>
           prev.slice(0, prev.length - 1).concat([
             {
