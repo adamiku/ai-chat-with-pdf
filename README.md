@@ -1,5 +1,7 @@
 It is an AI SaaS application that allows you to upload and analyze PDF files by AI. 
 
+Deployed here: https://ai-chat-with-pdf-one.vercel.app/
+
 The project contains a lot of tools and features:
 ## AI functionality
 - Pinecone: Vector Database to build knowledgeable AI
