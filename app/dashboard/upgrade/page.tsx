@@ -3,6 +3,12 @@
 import { createCheckoutSession } from "@/actions/createCheckoutSession";
 import { createStripePortal } from "@/actions/createStripePortal";
 import { Button } from "@/components/ui/button";
+import {
+  FREE_DOCUMENT_LIMIT,
+  FREE_MESSAGE_LIMIT,
+  PRO_DOCUMENT_LIMIT,
+  PRO_MESSAGE_LIMIT,
+} from "@/constant";
 import useSubscription from "@/hooks/useSubscription";
 import { getStripe } from "@/lib/stripe-js";
 import { useUser } from "@clerk/nextjs";
@@ -92,12 +98,12 @@ function PricingPage() {
 
             <ul className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
               <li className="flex gap-x-3">
-                <CheckIcon className="h-6 w-5 flex-none text-indigo-600" />2
-                Documents
+                <CheckIcon className="h-6 w-5 flex-none text-indigo-600" />
+                {FREE_DOCUMENT_LIMIT} Documents
               </li>
               <li className="flex gap-x-3">
                 <CheckIcon className="h-6 w-5 flex-none text-indigo-600" />
-                Up to 3 messages per document
+                Up to {FREE_MESSAGE_LIMIT} messages per document
               </li>
               <li className="flex gap-x-3">
                 <CheckIcon className="h-6 w-5 flex-none text-indigo-600" />
@@ -134,7 +140,7 @@ function PricingPage() {
             <ul className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
               <li className="flex gap-x-3">
                 <CheckIcon className="h-6 w-5 flex-none text-indigo-600" />
-                Store up to 20 Documents
+                Store up to {PRO_DOCUMENT_LIMIT} Documents
               </li>
               <li className="flex gap-x-3">
                 <CheckIcon className="h-6 w-5 flex-none text-indigo-600" />
@@ -142,7 +148,7 @@ function PricingPage() {
               </li>
               <li className="flex gap-x-3">
                 <CheckIcon className="h-6 w-5 flex-none text-indigo-600" />
-                Up to 100 messages per document
+                Up to {PRO_MESSAGE_LIMIT} messages per document
               </li>
               <li className="flex gap-x-3">
                 <CheckIcon className="h-6 w-5 flex-none text-indigo-600" />

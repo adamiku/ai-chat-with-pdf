@@ -1,5 +1,7 @@
 "use client";
 
+import { FREE_DOCUMENT_LIMIT } from "@/constant";
+import useSubscription from "@/hooks/useSubscription";
 import useUpload, { StatusText } from "@/hooks/useUpload";
 import byteSize from "byte-size";
 import {
@@ -12,6 +14,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
+import { useToast } from "./ui/use-toast";
 
 const MAXIMUM_FILE_SIZE = 5000000;
 
@@ -33,6 +36,8 @@ function FileUploader() {
   const [errors, setErrors] = useState<string | null>();
 
   const router = useRouter();
+  const { isOverFileLimit, filesLoading } = useSubscription();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (fileId) {
@@ -56,12 +61,21 @@ function FileUploader() {
       }
       const file = acceptedFiles[0];
       if (file) {
-        await handleUpload(file);
+        if (!isOverFileLimit && !filesLoading) {
+          await handleUpload(file);
+        } else {
+          toast({
+            variant: "destructive",
+            title: `Free Plan File Limit Reached (${FREE_DOCUMENT_LIMIT})`,
+            description:
+              "You have reached the macimum number of files allowed ofor your account. Please upgrade to add more documents.",
+          });
+        }
       } else {
         console.log("No file");
       }
     },
-    [handleUpload]
+    [handleUpload, isOverFileLimit, filesLoading, toast]
   );
 
   const { getRootProps, getInputProps, isDragActive, isFocused, isDragAccept } =

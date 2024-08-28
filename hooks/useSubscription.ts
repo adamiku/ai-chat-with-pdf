@@ -1,5 +1,6 @@
 "use client";
 
+import { FREE_DOCUMENT_LIMIT, PRO_DOCUMENT_LIMIT } from "@/constant";
 import { db } from "@/firebase";
 import { useUser } from "@clerk/nextjs";
 import { collection, doc } from "firebase/firestore";
@@ -39,7 +40,9 @@ function useSubscription() {
 
     const files = fileSnapshot.docs;
 
-    const usersLimit = hasActiveMembership ? PRO_LIMIT : FREE_LIMIT;
+    const usersLimit = hasActiveMembership
+      ? PRO_DOCUMENT_LIMIT
+      : FREE_DOCUMENT_LIMIT;
 
     setIsOverFileLimit(files.length >= usersLimit);
   }, [fileSnapshot, hasActiveMembership]);
