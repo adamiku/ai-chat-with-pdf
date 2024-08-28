@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -21,6 +22,7 @@ export default function RootLayout({
         <body
           className={`${inter.className} min-h-screen h-screen overflow-hidden flex flex-col`}
         >
+          <Toaster />
           {children}
         </body>
       </html>
