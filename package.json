@@ -27,7 +27,7 @@
     "firebase-admin": "^12.4.0",
     "langchain": "^0.2.17",
     "lucide-react": "^0.436.0",
-    "next": "14.2.6",
+    "next": "14.2.35",
     "pdf-parse": "^1.1.1",
     "react": "^18",
     "react-dom": "^18",
